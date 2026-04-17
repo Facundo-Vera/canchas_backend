@@ -7,7 +7,6 @@ const BookSchema = Schema (
         field: {
             type: Schema.Types.ObjectId,
            ref: "Field",
-        // type:String,
             required: [true, "Debes elegir una cancha"],
         },
         date: {

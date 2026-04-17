@@ -25,7 +25,7 @@ export const validateCreateField = [
   check("pricePerHour", "El precio por hora es obligatorio y debe ser un número mayor a 0")
     .isNumeric()
     .custom((value) => value > 0),
-  validate // Al final, llamamos al guardia que revisa si hubo errores
+  validate
 ];
 
 

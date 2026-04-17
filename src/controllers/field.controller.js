@@ -56,7 +56,7 @@ const createField = async (req, res) => {
         const newField = new Field({
             name: name,
             pricePerHour,
-            image: imageUrl // Guardamos la URL resultante
+            image: imageUrl
         });
 
         await newField.save();

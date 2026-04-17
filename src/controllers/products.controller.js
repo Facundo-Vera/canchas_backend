@@ -48,7 +48,6 @@ const createProduct = async (req, res) => {
       });
     }
 
-    // --- LÓGICA DE CLOUDINARY PARA CREAR ---
     let imageUrl = DEFAULT_IMAGE;
 
     if (req.files && req.files.archivo) {
@@ -59,7 +58,6 @@ const createProduct = async (req, res) => {
       });
       imageUrl = result.secure_url;
     }
-    // ---------------------------------------
 
     const data = {
       name,
@@ -129,7 +127,6 @@ const updateProduct = async (req, res) => {
       }
     }
 
-    // --- LÓGICA DE CLOUDINARY PARA ACTUALIZAR ---
     if (req.files && req.files.archivo) {
       const file = req.files.archivo;
       const dataUri = `data:${file.mimetype};base64,${file.data.toString("base64")}`;
@@ -138,7 +135,6 @@ const updateProduct = async (req, res) => {
       });
       data.image = result.secure_url; 
     }
-    // ------------------------------------------
 
     const updatedItem = await Product.findByIdAndUpdate(id, data, {
       new: true,

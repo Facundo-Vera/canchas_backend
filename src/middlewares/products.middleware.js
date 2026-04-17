@@ -32,16 +32,6 @@ const validateProductId = async (req, res, next) => {
   }
 };
 
-// ----------------------------------------------------
-// FUTURO:
-// Acá después podés agregar más middlewares de productos
-// Ejemplo:
-// - validateProductNameExists
-// - validateCategoryExists
-// - validateProductOwnership
-// - validateProductCanBeDeleted
-// ----------------------------------------------------
-
 export {
   validateProductId,
 };

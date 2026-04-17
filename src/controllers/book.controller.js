@@ -18,8 +18,6 @@ const getBookTimes = async (req, res) => {
     }).sort({ _id: -1 });
 
     if (!existingBooking) {
-
-      // buscamos la cancha
       const field = await Field.findById(fieldId);
 
       if (!field) {
@@ -32,7 +30,7 @@ const getBookTimes = async (req, res) => {
       const newBooking = new Book({
         field: fieldId,
         date,
-        price: field.pricePerHour, // guardamos el precio de la cancha
+        price: field.pricePerHour,
       });
 
       await newBooking.save();

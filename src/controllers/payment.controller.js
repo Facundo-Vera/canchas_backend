@@ -7,10 +7,6 @@ const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
 });
 
-/* =========================================================
-   HELPERS
-========================================================= */
-
 const validateQuantity = (quantity) => {
   const parsedQuantity = Number(quantity);
 
@@ -34,10 +30,6 @@ const getActiveCartByUser = async (userId) => {
 
   return cart;
 };
-
-/* =========================================================
-   PRODUCTO
-========================================================= */
 
 const buildProductPaymentItem = async (id, quantity = 1) => {
   const parsedQuantity = validateQuantity(quantity);
@@ -69,10 +61,6 @@ const buildProductPaymentItem = async (id, quantity = 1) => {
     currency_id: "ARS",
   };
 };
-
-/* =========================================================
-   RESERVA
-========================================================= */
 
 const buildBookingPaymentItem = async (id, userId) => {
   const booking = await Book.findById(id).populate("field");
@@ -118,10 +106,6 @@ const buildBookingPaymentItem = async (id, userId) => {
     currency_id: "ARS",
   };
 };
-
-/* =========================================================
-   CARRITO
-========================================================= */
 
 const buildCartPaymentData = async (userId) => {
   const cart = await getActiveCartByUser(userId);
@@ -171,10 +155,6 @@ const buildCartPaymentData = async (userId) => {
 
   return { cart, items };
 };
-
-/* =========================================================
-   CREAR PAGO
-========================================================= */
 
 const createPayment = async (req, res) => {
   try {
@@ -245,12 +225,10 @@ const createPayment = async (req, res) => {
           failure: "http://localhost:3001/pago-error",
           pending: "http://localhost:3001/pago-pendiente",
         },
-        // auto_return: "approved",
         external_reference: externalReference,
       },
     });
 
-    // Si el pago es del carrito, guardamos la preferencia creada
     if (type === "cart" && cartToUpdate) {
       cartToUpdate.mpPreferenceId = result.id;
       await cartToUpdate.save();
@@ -270,11 +248,10 @@ const createPayment = async (req, res) => {
   }
 };
 
-/* =========================================================
-   PROCESAR PAGO APROBADO DEL CARRITO
+/*
    Esta función es para usarla cuando Mercado Pago confirme
    que el pago fue aprobado.
-========================================================= */
+*/
 
 const processApprovedCartPayment = async (cartId, paymentId = null) => {
   const cart = await Cart.findById(cartId).populate({
